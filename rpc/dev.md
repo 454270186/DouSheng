@@ -14,6 +14,8 @@ type RegisterReq struct {
 type RegisterRes struct {
 	StatusCode int32
 	UserId     string
+    Token        string
+	RefreshToken string
 }
 ```
 
@@ -74,6 +76,28 @@ type GetUserRes struct {
 **rpc interface**
 ```go
 GetUserById(in *user.GetUserReq) (*user.GetUserRes, error)
+```
+
+### Get new token by refresh
+**Request body**
+```go
+type RefreshReq struct {
+	Token        string
+	RefreshToken string
+}
+```
+
+**Response body**
+```go
+type RefreshRes struct {
+	StatusCode int32
+	Token      string
+}
+```
+
+**rpc interface**
+```go
+Refresh(in *user.RefreshReq) (*user.RefreshRes, error)
 ```
 
 <br>

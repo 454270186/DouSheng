@@ -36,3 +36,8 @@ func (s *UserServiceServer) GetUserById(ctx context.Context, in *user.GetUserReq
 	l := logic.NewGetUserByIdLogic(ctx, s.svcCtx)
 	return l.GetUserById(in)
 }
+
+func (s *UserServiceServer) Refresh(ctx context.Context, in *user.RefreshReq) (*user.RefreshRes, error) {
+	l := logic.NewRefreshLogic(ctx, s.svcCtx)
+	return l.Refresh(in)
+}

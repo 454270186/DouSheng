@@ -17,6 +17,8 @@ type (
 	GetUserRes  = user.GetUserRes
 	LoginReq    = user.LoginReq
 	LoginRes    = user.LoginRes
+	RefreshReq  = user.RefreshReq
+	RefreshRes  = user.RefreshRes
 	RegisterReq = user.RegisterReq
 	RegisterRes = user.RegisterRes
 	User        = user.User
@@ -25,6 +27,7 @@ type (
 		Register(ctx context.Context, in *RegisterReq, opts ...grpc.CallOption) (*RegisterRes, error)
 		Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginRes, error)
 		GetUserById(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserRes, error)
+		Refresh(ctx context.Context, in *RefreshReq, opts ...grpc.CallOption) (*RefreshRes, error)
 	}
 
 	defaultUserService struct {
@@ -51,4 +54,9 @@ func (m *defaultUserService) Login(ctx context.Context, in *LoginReq, opts ...gr
 func (m *defaultUserService) GetUserById(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserRes, error) {
 	client := user.NewUserServiceClient(m.cli.Conn())
 	return client.GetUserById(ctx, in, opts...)
+}
+
+func (m *defaultUserService) Refresh(ctx context.Context, in *RefreshReq, opts ...grpc.CallOption) (*RefreshRes, error) {
+	client := user.NewUserServiceClient(m.cli.Conn())
+	return client.Refresh(ctx, in, opts...)
 }
